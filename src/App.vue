@@ -8,7 +8,7 @@
                   :checkTodo="checkTodo"
                   :deleteTodo="deleteTodo"
                 />
-                <MyFooter/>
+                <MyFooter :todos="todos"/>
             </div>
         </div>
     </div>
