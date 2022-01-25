@@ -11,7 +11,7 @@
         <!-- 同上(一次性) -->
         <Student @atguigu.once="getStudentName"/>
 
-        <!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第一种写法，使用ref）-->
+        <!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第二种写法，使用ref和mounted()）-->
         <!-- <Student ref="student"/> -->
     </div>
 </template>
