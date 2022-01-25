@@ -3,7 +3,11 @@
         <div class="todo-container">
             <div class="todo-wrap">
                 <MyHeader :addTodo="addTodo"/>
-                <MyList :todos="todos" :checkTodo="checkTodo"/>
+                <MyList
+                  :todos="todos"
+                  :checkTodo="checkTodo"
+                  :deleteTodo="deleteTodo"
+                />
                 <MyFooter/>
             </div>
         </div>
@@ -40,6 +44,13 @@
             checkTodo(id){
                 this.todos.forEach((todo)=>{
                     if(todo.id === id) todo.done = !todo.done
+                })
+            },
+            //删除一个todo
+            deleteTodo(id){
+                //filter过滤器只过滤不改变原数组，所以还需赋值给原数组
+                this.todos = this.todos.filter((todo)=>{
+                    return todo.id !== id
                 })
             }
         }
