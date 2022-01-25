@@ -1,7 +1,9 @@
 <template>
     <li>
         <label>
-            <input type="checkbox" :checked="todo.done"/>
+            <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
+            <!-- 如下代码也能能实现功能，但是不太推荐，因为有点违反了“vue不建议修改props”的原则,只是vue没有检测到 -->
+            <!-- <input type="checkbox" v-model="todo.done"/> -->
             <span>{{todo.title}}</span>
         </label>
         <button class="btn btn-danger" style="display:none">删除</button>
@@ -12,10 +14,13 @@
     export default{
         name:'MyItem',
         // 声明接收todo对象
-        props:['todo'],
-        mounted(){
-            // console.log(this.todo)
-        }
+        props:['todo','checkTodo'],
+        methods:{
+            handleCheck(id){
+                // 通知APP组件将对应的todo对象的done值取反
+                this.checkTodo(id)
+            }
+        },
     }
 </script>
 
