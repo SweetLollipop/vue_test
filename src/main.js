@@ -5,6 +5,8 @@ import App from './App.vue'
 // 关闭vue的生产提示
 Vue.config.productionTip = false
 
+Vue.prototype.x = {a:1,b:2}
+
 /*
   关于不同版本的Vue:
     1.vue. js与vue. runtime .XXX. js的区别:
