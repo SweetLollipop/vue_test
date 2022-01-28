@@ -51,6 +51,12 @@
                     if(todo.id === id) todo.done = !todo.done
                 })
             },
+            // 修改todo
+            updateTodo(id,newTitle){
+                this.todos.forEach((todo)=>{
+                    if(todo.id === id) todo.title = newTitle
+                })
+            },
             //删除一个todo
             deleteTodo(_,id){
                 //filter过滤器只过滤不改变原数组，所以还需赋值给原数组
@@ -82,11 +88,13 @@
         },
         mounted(){
             this.$bus.$on('checkTodo',this.checkTodo)
+            this.$bus.$on('updateTodo',this.updateTodo)
             // this.$bus.$on('deleteTodo',this.deleteTodo)
             this.pubId = pubsub.subscribe('deleteTodo',this.deleteTodo)
         },
         beforeDestroy(){
             this.$bus.$off('checkTodo')
+            this.$bus.$off('updateTodo')
             // this.$bus.$off('deleteTodo')
             pubsub.unsubscribe(this.pubId)
         }
@@ -114,6 +122,12 @@
     color: #fff;
     background-color: #da4f49;
     border: 1px solid #bd362f;
+    }
+    .btn-edit{
+    color: #fff;
+    background-color: skyblue;
+    border: 1px solid rgb(85, 133, 151);
+    margin-right: 5px;
     }
     .btn-danger:hover {
     color: #fff;

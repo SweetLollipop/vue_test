@@ -4,9 +4,11 @@
             <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
             <!-- 如下代码也能能实现功能，但是不太推荐，因为有点违反了“vue不建议修改props”的原则,只是vue没有检测到 -->
             <!-- <input type="checkbox" v-model="todo.done"/> -->
-            <span>{{todo.title}}</span>
+            <span v-show="!todo.isEdit">{{todo.title}}</span>
+            <input v-show="todo.isEdit" type="text" :value="todo.title" @blur="handleBlur(todo,$event)">
         </label>
         <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+        <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
     </li>
 </template>
 
@@ -31,6 +33,20 @@
                     // this.$bus.$emit('deleteTodo',id)
                     pubsub.publish('deleteTodo',id)
                 }
+            },
+            //编辑
+            handleEdit(todo){
+                if(todo.hasOwnProperty('isEdit')){
+                    todo.isEdit = true
+                }else{
+                    this.$set(todo,'isEdit',true) //给todo追加一个属性isEdit，值为true
+                }
+            },
+            //失去焦点回调（真正执行修改逻辑）
+            handleBlur(todo,e){
+                todo.isEdit = false
+                if(!e.target.value.trim()) return alert('输入不能为空!')
+                this.$bus.$emit('updateTodo',todo.id,e.target.value)
             }
         },
     }
