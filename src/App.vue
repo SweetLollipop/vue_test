@@ -1,28 +1,23 @@
 <template>
     <div class="container">
-        <Category title="美食">
-            <img slot="center" src="https://s3.ax1x.com/2021/01/16/srJlq0.jpg" alt="foods"/>
-            <a slot="footer" href="http://ww.atguigu.com">更多美食</a>
+        <Category title="游戏">
+            <template scope="atguigu">
+                <ul>
+                    <li v-for="(g,index) in atguigu.games" :key="index">{{g}}</li>
+                </ul>
+            </template>
         </Category>
         <Category title="游戏">
-            <ul slot="center">
-                <li v-for="(g,index) in games" :key="index">{{g}}</li>
-            </ul>
-            <div class="foot" slot="footer">
-                <a href="http://ww.atguigu.com">单机游戏</a>
-                <a href="http://ww.atguigu.com">网络游戏</a>
-            </div>
+            <!-- ES6的结构赋值scope="{games}" -->
+            <template scope="{games}">
+                <ol>
+                    <li style="color:red" v-for="(g,index) in games" :key="index">{{g}}</li>
+                </ol>
+            </template>
         </Category>
-        <Category title="电影">
-            <video slot="center" controls src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
-            <!-- vue2.6中具名插槽的新写法v-slot:footer只能用在template标签体 -->
-            <template v-slot:footer>
-                <div class="foot">
-                    <a href="http://ww.atguigu.com">经典</a>
-                    <a href="http://ww.atguigu.com">热门</a>
-                    <a href="http://ww.atguigu.com">推荐</a>
-                </div>
-                <h4>欢迎前来观影</h4>
+        <Category title="游戏">
+            <template slot-scope="{games}">
+                <h4 v-for="(g,index) in games" :key="index">{{g}}</h4>
             </template>
         </Category>
     </div>
@@ -33,13 +28,6 @@
     export default {
         name:'App',
         components: { Category },
-        data(){
-            return{
-                foods:['火锅','烧烤','小龙虾','牛排'],
-                games:['红色警戒','穿越火线','劲舞团','超级玛丽'],
-                films:['《教父》','《拆弹专家》','《你好，李焕英》','《尚硅谷》']
-            }
-        }
     }
 </script>
 
