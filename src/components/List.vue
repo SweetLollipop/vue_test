@@ -1,11 +1,18 @@
 <template>
     <div class="row">
-        <div class="card" v-for="user in users" :key="user.id">
+        <!-- 展示用户列表 -->
+        <div v-show="info.users.length" class="card" v-for="user in info.users" :key="user.id">
             <a :href="user.html_url" target="_blank">
             <img :src="user.avatar_url" style='width: 100px'/>
             </a>
             <p class="card-text">{{user.login}}</p>
         </div>
+        <!-- 展示欢迎词 -->
+        <h1 v-show="info.isFirst">欢迎使用!</h1>
+        <!-- 展示加载中 -->
+        <h1 v-show="info.isLoading">加载中</h1>
+        <!-- 展示错误信息 -->
+        <h1 v-show="info.errMsg">{{info.errMsg}}</h1>
     </div>
 </template>
 
@@ -14,18 +21,23 @@ export default {
     name:'List',
     data(){
         return{
-            users:[]
+            info:{
+                isFirst:true,
+                isLoading:false,
+                errMsg:'',
+                users:[]
+            }
         }
     },
     mounted(){
-        this.$bus.$on('getUsers',(users)=>{
-            console.log('我是List组件,收到了数据: ',users)
-            this.users = users
+        this.$bus.$on('updateListData',(dataObj)=>{
+            console.log(dataObj)
+            this.info = {...this.info,...dataObj}  //ES6特性：用dataObj中的数据并入info
         })
     },
     destroyed(){
-        this.$bus.$off('getUsers')
-    }
+        this.$bus.$off('updateListData')
+    },
 }
 </script>
 
