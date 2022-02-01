@@ -1,7 +1,8 @@
 // 该文件是整个项目的入口文件
 import Vue from 'vue'  //引入残缺版的vue
 import App from './App.vue' 
-import vueResource from 'vue-resource' //引入插件
+import vueResource from 'vue-resource' //引入插件vue-resource
+import store from './store' //引入store,可省略index.js
 
 // 关闭vue的生产提示
 Vue.config.productionTip = false
@@ -22,6 +23,7 @@ Vue.use(vueResource)
 new Vue({
   // 将App组件放入容器中
   render: h => h(App),  //渲染，带有返回值
+  store, //配置store使得vm和vc都能附带上,store:store简写形式
   beforeCreate(){
     Vue.prototype.$bus = this
   }
