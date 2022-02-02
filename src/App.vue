@@ -13,7 +13,7 @@
         name:'App',
         components: { Count,Person },
         mounted(){
-            console.log('App',this)
+            // console.log('App',this)
         }
     }
 </script>

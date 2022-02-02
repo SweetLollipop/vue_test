@@ -34,7 +34,9 @@ export default {
         // ...mapState({sum:'sum',school:'school',subject:'subject'}),
         
         //借助mapState生成计算属性,从state中读取数据。（数组写法）
-        ...mapState(['sum','school','subject','personList']),
+        // ...mapState(['sum','school','subject','personList']),
+        ...mapState('countOptions',['sum','school','subject']),
+        ...mapState('personOptions',['personList']),
 
         /* ********************************** */
         /* bigSum(){
@@ -44,7 +46,7 @@ export default {
         // ...mapGetters({bigSum:'bigSum'})
 
         //借助mapGetters生成计算属性,从getters中读取数据。（数组写法）
-        ...mapGetters(['bigSum'])
+        ...mapGetters('countOptions',['bigSum'])
     },
     methods:{
         //程序员亲自写方法increment\decrement
@@ -56,7 +58,8 @@ export default {
         }, */
 
         //借助mapMutations生成对应的方法，方法中会调用commit去联系mutations,单模板中的increment方法必须加形参n(对象写法)
-        ...mapMutations({increment:'ADD',decrement:'MINUS'}),
+        // ...mapMutations({increment:'ADD',decrement:'MINUS'}),
+        ...mapMutations('countOptions',{increment:'ADD',decrement:'MINUS'}),
 
         //借助mapMutations生成对应的方法，方法中会调用commit去联系mutations,单模板中的increment方法必须加形参n(数组写法)
         // ...mapMutations(['ADD','MINUS']),
@@ -70,7 +73,8 @@ export default {
         }, */
 
         //借助mapActions生成对应的方法，方法中会调用dispatch去联系actions,单模板中的incrementOdd方法必须加形参n(对象写法)
-        ...mapActions({incrementOdd:'addOdd',incrementWait:'addWait'}),
+        // ...mapActions({incrementOdd:'addOdd',incrementWait:'addWait'}),
+        ...mapActions('countOptions',{incrementOdd:'addOdd',incrementWait:'addWait'}),
 
         //借助mapActions生成对应的方法，方法中会调用dispatch去联系actions,单模板中的incrementOdd方法必须加形参n(数组写法)
         // ...mapActions(['addOdd','addWait']),
@@ -78,7 +82,7 @@ export default {
     },
     mounted(){
         const x = mapState({sum:'sum',school:'school',subject:'subject'})
-        console.log(x)
+        // console.log(x)
     }
 }
 </script>
