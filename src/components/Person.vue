@@ -2,8 +2,11 @@
     <div>
         <h1>人员列表</h1>
         <h3 style="color:red">上方Count组件求和为:{{sum}}</h3>
+        <h3>列表中第一个人的名字是:{{firstPersonName}}</h3>
         <input type="text" placeholder="请输入名字" v-model="name">
         <button @click="addPerson">添加</button>
+        <button @click="addPersonWang">添加一个姓王的人</button>
+        <button @click="addPersonServer">添加一个随机姓名的人</button>
         <ul>
             <li v-for="p in personList" :key="p.id">{{p.name}}</li>
         </ul>
@@ -21,17 +24,35 @@
             }
         },
         computed:{
-            /* personList(){
-                return this.$store.state.personList
-            } */
-            ...mapState(['personList','sum']),
+            /* sum(){
+                return this.$store.state.countOptions.sum
+            },
+            personList(){
+                return this.$store.state.personOptions.personList
+            }, */
+            ...mapState('countOptions',['sum']),
+            ...mapState('personOptions',['personList']),
+            firstPersonName(){
+                return this.$store.getters['personOptions/firstPersonName']
+            }
         },
         methods:{
             addPerson(){
                 const personObj = {id:nanoid(),name:this.name}
-                this.$store.commit('ADD_PERSON',personObj)
+                this.$store.commit('personOptions/ADD_PERSON',personObj)
                 this.name = ''
+            },
+            addPersonWang(){
+                const personObj = {id:nanoid(),name:this.name}
+                this.$store.dispatch('personOptions/addPersonWang',personObj)
+                this.name = ''
+            },
+            addPersonServer(){
+                this.$store.dispatch('personOptions/addPersonServer')
             }
+        },
+        mounted(){
+            console.log(this.$store)
         }
     }
 </script>
