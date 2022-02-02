@@ -3,6 +3,7 @@
         <h1>当前求和为:{{sum}}</h1>
         <h1>当前求和乘以10为:{{bigSum}}</h1>
         <h3>我在{{school}},学习{{subject}}</h3>
+        <h3 style="color:red">下方Person组件中的总人数是:{{personList.length}}</h3>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -33,7 +34,7 @@ export default {
         // ...mapState({sum:'sum',school:'school',subject:'subject'}),
         
         //借助mapState生成计算属性,从state中读取数据。（数组写法）
-        ...mapState(['sum','school','subject']),
+        ...mapState(['sum','school','subject','personList']),
 
         /* ********************************** */
         /* bigSum(){
