@@ -13,26 +13,31 @@ const router = new VueRouter({
         name:'concern',
         path:'/about',
         component:About,
+        meta:{title:'关于'}
       }, 
       {
         name:'house',
         path:'/home',
         component:Home,
+        meta:{title:'主页'},
         children:[
           {
             name:'jour',
             path:'news',  //子路由不加斜杠
             component:News,
+            meta:{isAuth:true,title:'新闻'}
           },
           {
             name:'tidings',
             path:'message',
             component:Message,
+            meta:{isAuth:true,title:'消息'},
             children:[
               {
                 name:'particular',
                 path:'detail/:id/:title',
                 component:Detail,
+                meta:{isAuth:true,title:'详情'},
 
                 //props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传给Detail组件。
                 // props:{a:1,b:'hello'},
@@ -60,16 +65,21 @@ const router = new VueRouter({
 
 //全局前置路由守卫-初始化的时候被调用、每次路由切换之前被调用
 router.beforeEach((to,from,next)=>{
-  console.log(to,from)
-  if(to.path==='/home/news' || to.path==='/home/message'){
+  console.log("全局前置路由守卫",to,from)
+  if(to.meta.isAuth){
     if(localStorage.getItem('school')==='atguigu'){
-      next()
+      next() //放行
     }else{
       alert('学校名不对，无权限查看!')
     }
   }else{
-    next()
+    next() //放行
   }
+})
+//全局后置路由守卫-初始化的时候被调用、每次路由切换之后被调用
+router.afterEach((to,from)=>{
+  console.log("全局后置路由守卫",to,from)
+  document.title = to.meta.title || '硅谷系统'
 })
 
 export default router
