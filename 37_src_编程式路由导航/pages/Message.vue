@@ -15,8 +15,8 @@
                 }">
                     {{m.title}}
                 </router-link>&nbsp;&nbsp;
-                <!-- <button @click="pushShow(m)">push查看</button>
-                <button>replace查看</button> -->
+                <button @click="pushShow(m)">push查看</button>
+                <button @click="replaceShow(m)">replace查看</button>
             </li>
         </ul>
         <router-view></router-view>
@@ -37,13 +37,22 @@
         },
         methods:{
             pushShow(m){
-                /* this.$router.push({
+                this.$router.push({
                     name:'particular',  //携带params参数此处必须是name,不能用path
                     params:{
                        id:m.id,
                        title:m.title,
                     } 
-                }) */
+                })
+            },
+            replaceShow(m){
+                this.$router.replace({
+                    name:'particular',  //携带params参数此处必须是name,不能用path
+                    params:{
+                       id:m.id,
+                       title:m.title,
+                    } 
+                })
             }
         }
     }
