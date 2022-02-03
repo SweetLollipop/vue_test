@@ -10,7 +10,7 @@
                     <router-link class="list-group-item" active-class="active" to="/home/message">Message</router-link>
                 </li>
             </ul>
-            <keep-alive include="News">
+            <keep-alive :include="['News','Message']">
                 <!-- 指定组件的呈现位置 -->
                 <router-view></router-view>
             </keep-alive>
