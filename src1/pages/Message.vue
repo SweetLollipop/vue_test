@@ -15,6 +15,8 @@
                 }">
                     {{m.title}}
                 </router-link>&nbsp;&nbsp;
+                <!-- <button @click="pushShow(m)">push查看</button>
+                <button>replace查看</button> -->
             </li>
         </ul>
         <router-view></router-view>
@@ -31,6 +33,17 @@
                     {id:'002',title:'消息002'},
                     {id:'003',title:'消息003'},
                 ]
+            }
+        },
+        methods:{
+            pushShow(m){
+                /* this.$router.push({
+                    name:'particular',  //携带params参数此处必须是name,不能用path
+                    params:{
+                       id:m.id,
+                       title:m.title,
+                    } 
+                }) */
             }
         }
     }
